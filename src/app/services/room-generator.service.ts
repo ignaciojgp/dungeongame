@@ -3,11 +3,12 @@ import { Room } from '../model/room';
 import { Level } from '../model/level';
 
 enum direction{
-    TOP,
-    BOTTOM,
-    LEFT,
-    RIGHT,
-    NONE
+  	NONE,  
+  	TOP,
+	BOTTOM,
+	LEFT,
+	RIGHT,
+    
 }
 
 @Injectable({
@@ -22,14 +23,14 @@ export class RoomGeneratorService {
 
         let level: Level = new Level();
 
-        this.generateRoom(distance, 0, 0, level, -1);
+        this.generateRoom(distance, 0, 0, level, direction.NONE, null);
 
 
         return level;
 
     }
 
-    private generateRoom(iteration:number, locx:number, locy:number, level:Level, becomeFromDirection:direction):Room{
+    private generateRoom(iteration:number, locx:number, locy:number, level:Level, becomeFromDirection:direction, previousRoom:Room):Room{
 
 
         if(iteration == 0){
@@ -61,18 +62,35 @@ export class RoomGeneratorService {
                 room.locy = locy;
 
                 level.grid.push(room);
-
+                room.name = "" + (level.grid.length -1);
                 //generamos cuartos para cada pared del cuarto
 
 
-                if(direction != direction.LEFT) room.leftWall = this.generateRoom(iteration, locx -1, locy, level, direction.RIGHT) == null; //a la izquierda
-                else room.leftWall = false;
-                if(direction != direction.RIGHT) room.rightWall= this.generateRoom(iteration, locx +1, locy, level, direction.LEFT) == null; //a la derecha
-                else room.rightWall = false;
-                if(direction != direction.BOTTOM) room.bottomWall = this.generateRoom(iteration, locx , locy -1, level, direction.TOP) == null; //a la abajo
-                else room.bottomWall = false;
-                if(direction != direction.TOP) room.topWall = this.generateRoom(iteration, locx , locy +1, level, direction.BOTTOM) == null; //a la arriba
-                else room.topWall = false;
+
+                if(becomeFromDirection == direction.LEFT) {
+                  room.leftRoom = previousRoom;
+                }else{
+                  room.leftRoom = this.generateRoom(iteration, locx -1, locy, level, direction.RIGHT,room); //a la izquierda
+                }
+                
+                if(becomeFromDirection == direction.RIGHT){
+                   room.rightRoom = previousRoom;
+                }else{
+                  room.rightRoom= this.generateRoom(iteration, locx +1, locy, level, direction.LEFT,room); //a la derecha
+                }
+                
+                if(becomeFromDirection == direction.BOTTOM) {
+                  room.bottomRoom = previousRoom;
+                }else{
+                  room.bottomRoom = this.generateRoom(iteration, locx , locy +1, level, direction.TOP,room); //a la abajo
+                }
+
+                if(becomeFromDirection == direction.TOP){
+                  room.topRoom = previousRoom;
+                }else{ 
+                  room.topRoom = this.generateRoom(iteration, locx , locy -1, level, direction.BOTTOM,room); //a la arriba
+                } 
+                
 
 
                 return room;

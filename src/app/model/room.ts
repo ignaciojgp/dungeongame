@@ -8,6 +8,11 @@ export class Room {
     public leftWall:boolean;
     public rightWall:boolean;
 
+    public topRoom:Room;
+    public bottomRoom:Room;
+    public leftRoom:Room;
+    public rightRoom:Room;
+
     constructor (){
 
         this.name = "prueba";
