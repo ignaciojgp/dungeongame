@@ -63,9 +63,9 @@ export class RoomGeneratorService {
 
                 level.grid.push(room);
                 room.name = "" + (level.grid.length -1);
-                //generamos cuartos para cada pared del cuarto
+                
 
-
+				//generamos cuartos para cada pared del cuarto
 
                 if(becomeFromDirection == direction.LEFT) {
                   room.leftRoom = previousRoom;

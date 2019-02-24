@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RoomGeneratorService } from '../services/room-generator.service';
 import { Level } from '../model/level';
 import { Room } from '../model/room';
+import { SessionService } from '../services/session.service';
 
 @Component({
   selector: 'app-room-displayer',
@@ -14,9 +15,16 @@ export class RoomDisplayerComponent implements OnInit {
     private  size = 30;
     private  wallSize = 3;
 
-    constructor(private generator: RoomGeneratorService){
-      this.level = generator.initMapWithSize(10);
+    public mapVisibility = false;
+    public showingRoom:Room;
+
+    constructor(private sessionService: SessionService){
+      this.level = sessionService.getCurrentLevel();
+      this.showingRoom = sessionService.getCurrentRoom();
+
+
       console.log(this.level);
+      console.log(this.showingRoom);
     }
 
     ngOnInit() {
@@ -24,6 +32,11 @@ export class RoomDisplayerComponent implements OnInit {
     }
 
     drawMap(){
+
+        if(this.level == null){
+            console.log("no hay nivel a pintar");
+            return;
+        }
 
         let minx = Math.min.apply(Math, this.level.grid.map(function(o) { return o.locx; }));
         let miny = Math.min.apply(Math, this.level.grid.map(function(o) { return o.locy; }));
@@ -107,6 +120,10 @@ export class RoomDisplayerComponent implements OnInit {
 
         ctx.fillText(room.name, posx+this.wallSize*2, posy+this.wallSize*5);
 
+    }
+
+    public toggleMap(){
+        this.mapVisibility = !this.mapVisibility;
     }
 
 }
