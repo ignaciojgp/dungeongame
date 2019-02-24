@@ -1,4 +1,11 @@
 import { Component } from '@angular/core';
+import { RoomGeneratorService } from './services/room-generator.service';
+
+enum appStates{
+  BEGIN,
+  INGAME,
+  END
+}
 
 @Component({
   selector: 'app-root',
@@ -6,5 +13,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.less'],
 })
 export class AppComponent {
-  title = 'dungeon-game';
+
+  constructor(private generator: RoomGeneratorService){
+    console.log(generator.generateRandomRoom());
+  }
+
+  state: appStates;
 }
