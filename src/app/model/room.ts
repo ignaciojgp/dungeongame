@@ -1,13 +1,17 @@
 export class Room {
     public name: string;
-    public description: string;
-    public image: string;
+    public locx: number;
+    public locy: number;
+
+    public topWall:boolean;
+    public bottomWall:boolean;
+    public leftWall:boolean;
+    public rightWall:boolean;
 
     constructor (){
 
         this.name = "prueba";
-        this.description = "descri";
-        this.image = "";
-        
+
+
     }
 }

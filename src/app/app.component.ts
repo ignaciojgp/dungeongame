@@ -14,9 +14,6 @@ enum appStates{
 })
 export class AppComponent {
 
-  constructor(private generator: RoomGeneratorService){
-    console.log(generator.generateRandomRoom());
-  }
 
   state: appStates;
 }
