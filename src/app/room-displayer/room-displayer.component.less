@@ -1,20 +1,39 @@
+.mainImage{
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
 .room{
-    .mainImage{
-        width: 100%;
-    }
+    position: relative;
+    z-index: 1;
+    color: white;
+    font-size: 12px;
+    background: rgb(58, 59, 53);
+    opacity: 0.8;
+    padding: 10px;
+    margin: 10px;
+    text-align: center;
+
     h2{
         text-align: center;
         font-size: 15px;
+        margin-top: 0;
     }
 }
 
 .controls{
     text-align: center;
-    position: relative;
+    position: fixed;
+    bottom: 20px;
     padding: 30px;
     width: 100px;
     height: 100px;
     margin: auto;
+    z-index: 3;
+    left: 50%;
+    margin-left: -80px;
 
     button{
         width: 30px;
@@ -62,7 +81,7 @@
     height: 100px;
     overflow: scroll;
     background: black;
-    border: black solid 2px;
+    border: rgb(83, 83, 83) solid 2px;
     -webkit-border-radius: 50px;
     -moz-border-radius: 50px;
     border-radius: 50px;

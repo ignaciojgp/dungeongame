@@ -1,18 +1,17 @@
 <div class="toolbar">
     <div class="leftOptions">
-        <button routerLink="/">regresar</button>
-    </div>
-    <div class="rightOptions">
-        <button (click)="toggleMap()">show map</button>
+        <button routerLink="/">
+            <img src="/assets/home.png" alt="">
+        </button>
     </div>
 </div>
 <div class="body">
     
+    <img class="mainImage" src="https://cdn.vox-cdn.com/thumbor/2Cy46Y2K-BodmFzkVK3PQR_XwcI=/0x0:1920x1080/1600x900/cdn.vox-cdn.com/uploads/chorus_image/image/49322769/Irithyll_Dungeon.0.0.jpg" alt="">
     
     
     <div class="room"  *ngIf="showingRoom">
         <h2>{{showingRoom.name}}</h2>
-        <img class="mainImage" src="https://cdn.vox-cdn.com/thumbor/2Cy46Y2K-BodmFzkVK3PQR_XwcI=/0x0:1920x1080/1600x900/cdn.vox-cdn.com/uploads/chorus_image/image/49322769/Irithyll_Dungeon.0.0.jpg" alt="">
         <p>{{showingRoom.description}}</p>
     </div>
     
