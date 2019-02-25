@@ -2,10 +2,76 @@
     .mainImage{
         width: 100%;
     }
-
+    h2{
+        text-align: center;
+        font-size: 15px;
+    }
 }
 
 .controls{
     text-align: center;
+    position: relative;
+    padding: 30px;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+
+    button{
+        width: 30px;
+        height: 30px;
+        position: absolute;
+        padding: 0;
+        border: none;
+        background: none;
+    }
+
+    .left{
+        left: 0;
+        top: 65px;
+        z-index: 100;
+    }
+
+    .right{
+        right: 0;
+        top:65px;
+    }
+
+    .up{
+        top: 0;
+        left: 65px;
+    }
+
+    .down{
+        bottom: 0;
+        left: 65px;
+    }
+
+    .character{
+        position: absolute;
+        left:50%;
+        width: 16px;
+        margin-left: -8px;
+        margin-top: -8px;
+
+        top:50%;
+    }
 }
 
+.mapPanel{
+    width: 100px;
+    height: 100px;
+    overflow: scroll;
+    background: black;
+    border: black solid 2px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    margin-top: -3px;
+    margin-left: -2px;
+    
+    canvas{
+        margin: 50px;
+    }
+
+
+}

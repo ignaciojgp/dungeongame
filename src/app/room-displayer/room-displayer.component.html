@@ -9,22 +9,27 @@
 <div class="body">
     
     
-    <div class="scrollPanel mapPanel" [ngClass]="{hidden: mapVisibility != true}">
-        <button (click)="toggleMap()" class="closeButton">X</button><br>
-        <canvas id="canvas" width="1000" height="1000" ></canvas>
-    </div>
-
+    
     <div class="room"  *ngIf="showingRoom">
         <h2>{{showingRoom.name}}</h2>
         <img class="mainImage" src="https://cdn.vox-cdn.com/thumbor/2Cy46Y2K-BodmFzkVK3PQR_XwcI=/0x0:1920x1080/1600x900/cdn.vox-cdn.com/uploads/chorus_image/image/49322769/Irithyll_Dungeon.0.0.jpg" alt="">
         <p>{{showingRoom.description}}</p>
     </div>
-
+    
     <div class="controls">
-        <button>Go Left</button>
-        <button>Go UP</button>
-        <button>Go Down</button>
-        <button>Go Right</button>
+
+        <img class="character" src="/assets/doll.png">
+
+        <div class="mapPanel" id="mapPanel" >
+            <canvas id="canvas" width="1000" height="1000" ></canvas>
+        </div>
+        <button class="left" (click)="move('left')"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMjRjNi42MjcgMCAxMi01LjM3MyAxMi0xMnMtNS4zNzMtMTItMTItMTItMTIgNS4zNzMtMTIgMTIgNS4zNzMgMTIgMTIgMTJ6bS0xLTE3djRoOHYyaC04djRsLTYtNSA2LTV6Ii8+PC9zdmc+"></button>
+        <button class="up" (click)="move('up')"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMCAxMmMwIDYuNjI3IDUuMzczIDEyIDEyIDEyczEyLTUuMzczIDEyLTEyLTUuMzczLTEyLTEyLTEyLTEyIDUuMzczLTEyIDEyem0xOC0xaC00djdoLTR2LTdoLTRsNi02IDYgNnoiLz48L3N2Zz4="></button>
+        <button class="down" (click)="move('down')"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMjQgMTJjMC02LjYyNy01LjM3My0xMi0xMi0xMnMtMTIgNS4zNzMtMTIgMTIgNS4zNzMgMTIgMTIgMTIgMTItNS4zNzMgMTItMTJ6bS0xNyAxaDR2LThoMnY4aDRsLTUgNi01LTZ6Ii8+PC9zdmc+"></button>
+        <button class="right" (click)="move('right')"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMGMtNi42MjcgMC0xMiA1LjM3My0xMiAxMnM1LjM3MyAxMiAxMiAxMiAxMi01LjM3MyAxMi0xMi01LjM3My0xMi0xMi0xMnptMSAxN3YtNGgtOHYtMmg4di00bDYgNS02IDV6Ii8+PC9zdmc+"></button>
+
+        <!-- <button class="localize" (click)="updateMapScroll()"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMmM1LjUxNCAwIDEwIDQuNDg2IDEwIDEwcy00LjQ4NiAxMC0xMCAxMC0xMC00LjQ4Ni0xMC0xMCA0LjQ4Ni0xMCAxMC0xMHptMC0yYy02LjYyNyAwLTEyIDUuMzczLTEyIDEyczUuMzczIDEyIDEyIDEyIDEyLTUuMzczIDEyLTEyLTUuMzczLTEyLTEyLTEyem0xLjYwOCA5LjQ3NmwtMS42MDgtNS40NzYtMS42MTEgNS40NzdjLS40MjkuMjc1LS43NzUuNjU4LTEuMDE5IDEuMTA3bC01LjM3IDEuNDE2IDUuMzcgMS40MTZjLjI0My40NDkuNTg5LjgzMyAxLjAxOSAxLjEwN2wxLjYxMSA1LjQ3NyAxLjYxOC01LjQ3OWMuNDI4LS4yNzUuNzcxLS42NTkgMS4wMTQtMS4xMDlsNS4zNjgtMS40MTItNS4zNjgtMS40MTNjLS4yNDQtLjQ1Mi0uNTkyLS44MzYtMS4wMjQtMS4xMTF6bS0xLjYwOCA0LjAyNGMtLjgyOCAwLTEuNS0uNjcyLTEuNS0xLjVzLjY3Mi0xLjUgMS41LTEuNSAxLjUuNjcyIDEuNSAxLjUtLjY3MiAxLjUtMS41IDEuNXptNS4yNSAzLjc1bC0yLjU3My0xLjYzOWMuMzU2LS4yNjQuNjctLjU3OS45MzUtLjkzNGwxLjYzOCAyLjU3M3ptLTIuNjQxLTguOTExbDIuNjQtMS41ODgtMS41ODggMi42MzljLS4yOS0uNDA3LS42NDUtLjc2MS0xLjA1Mi0xLjA1MXptLTUuMjE1IDcuMzI1bC0yLjY0NCAxLjU4NiAxLjU4OS0yLjY0MWMuMjkuNDA4LjY0Ni43NjQgMS4wNTUgMS4wNTV6bS0xLjAwNS02LjM0bC0xLjYzOC0yLjU3MyAyLjU3MyAxLjYzOGMtLjM1Ny4yNjQtLjY3Mi41NzktLjkzNS45MzV6Ii8+PC9zdmc+"></button> -->
+
     </div>
 
 </div>

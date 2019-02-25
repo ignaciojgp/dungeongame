@@ -57,15 +57,14 @@ export class RoomGeneratorService {
             }else{
 
                 let room = new Room();
-                room.name = Math.random()+"";
                 room.locx = locx;
                 room.locy = locy;
 
                 level.grid.push(room);
-                room.name = "" + (level.grid.length -1);
+                room.id =level.grid.length -1;
                 
 
-				//generamos cuartos para cada pared del cuarto
+				        //generamos cuartos para cada pared del cuarto
 
                 if(becomeFromDirection == direction.LEFT) {
                   room.leftRoom = previousRoom;
