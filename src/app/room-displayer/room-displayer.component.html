@@ -7,9 +7,10 @@
 </div>
 <div class="body">
     
-    <img class="mainImage" src="https://cdn.vox-cdn.com/thumbor/2Cy46Y2K-BodmFzkVK3PQR_XwcI=/0x0:1920x1080/1600x900/cdn.vox-cdn.com/uploads/chorus_image/image/49322769/Irithyll_Dungeon.0.0.jpg" alt="">
+    <!-- <img class="mainImage" src="https://cdn.vox-cdn.com/thumbor/2Cy46Y2K-BodmFzkVK3PQR_XwcI=/0x0:1920x1080/1600x900/cdn.vox-cdn.com/uploads/chorus_image/image/49322769/Irithyll_Dungeon.0.0.jpg" alt=""> -->
     
-    
+    <div class="mainImage" [style.background-image]="'url(/assets/'+ showingRoom.image+')'" ></div>
+
     <div class="room"  *ngIf="showingRoom">
         <h2>{{showingRoom.name}}</h2>
         <p>{{showingRoom.description}}</p>

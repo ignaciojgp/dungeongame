@@ -1,7 +1,11 @@
+import { Treasure } from './treasure';
+import { Monster } from './monster';
+
 export class Room {
     public id:number;
     public name: string;
     public description: string;
+    public image: string;
     public locx: number;
     public locy: number;
 
@@ -14,6 +18,9 @@ export class Room {
     public bottomRoom:Room;
     public leftRoom:Room;
     public rightRoom:Room;
+
+    public treasure:Treasure;
+    public monster:Monster;
 
     constructor (){
 

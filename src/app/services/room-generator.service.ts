@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Room } from '../model/room';
 import { Level } from '../model/level';
+import roomsCongifuration from '../../assets/rooms.json';
+
 
 enum direction{
-  	NONE,  
-  	TOP,
+  NONE,  
+  TOP,
 	BOTTOM,
 	LEFT,
-	RIGHT,
-    
+	RIGHT
 }
 
 @Injectable({
@@ -16,7 +17,10 @@ enum direction{
 })
 export class RoomGeneratorService {
 
-    constructor() { }
+    constructor() {
+      
+    }
+
 
 
     public initMapWithSize(distance: number): Level {
@@ -56,7 +60,7 @@ export class RoomGeneratorService {
                 return null;
             }else{
 
-                let room = new Room();
+                let room = this.generateRandomRoom();
                 room.locx = locx;
                 room.locy = locy;
 
@@ -90,6 +94,7 @@ export class RoomGeneratorService {
                   room.topRoom = this.generateRoom(iteration, locx , locy -1, level, direction.BOTTOM,room); //a la arriba
                 } 
                 
+               
 
 
                 return room;
@@ -102,7 +107,49 @@ export class RoomGeneratorService {
     }
 
     public generateRandomRoom(): Room{
-        return new Room();
+
+		let room = new Room();
+
+		this.getRandomData(room);
+
+
+        //generamos un monstruo al azar
+
+        //generamos un tesoro al azar
+        return room;
     }
 
+	private getRandomData(room:Room){
+
+
+		var max = 0;
+		for(let roomconf of roomsCongifuration.rooms){
+			max += roomconf.commonRate;
+		}
+		
+		let prob = Math.random()*max;
+
+		var inVal = 0;
+		var selectedRoomConf: any = null;
+
+		for(let roomconf of roomsCongifuration.rooms){
+			var outVal = inVal + roomconf.commonRate;
+
+			if(prob >= inVal && prob < outVal){
+				selectedRoomConf = roomconf;		
+				break;		
+			}
+
+			inVal = outVal;
+		}
+
+
+		room.name = selectedRoomConf.name;
+		room.description = selectedRoomConf.description;
+		room.image = selectedRoomConf.image;
+		
+
+
+		return room;
+	}
 }

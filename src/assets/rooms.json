@@ -1,0 +1,33 @@
+{
+    "rooms":[
+        {
+            "name":"Cocina",
+            "description":"Casuelas y ollas cuelgan de las paredes, hay un fogón en una esquina que emite una luz rojisa tenue.",
+            "commonRate":1,
+            "image":"cocina.jpg"
+        },
+        {
+            "name":"Comedor",
+            "description":"Tres viejas sillas rodean una mesa sucia topada con trastos sucios y basos mohosos.",
+            "commonRate":2,
+            "image":"room01.jpg"
+
+        },
+        {
+            "name":"Dormitorio",
+            "description":"En el centro de la habitación hay una rústica cama de madera de pino, delgadas sábanas de lana cubren la cubren. Un tapete desgastado se asoma por debajo de la misma.",
+            "commonRate":4,
+            "image":"dormitorio.jpg"
+
+        },
+        {
+            "name":"Pasillo",
+            "description":"Las paredes del pasillo están manchadas del ollín de las velas colocadas a unos dos metros de altura en rústicos candelabros pegados a la pared.",
+            "commonRate":20,
+            "image":"pasillo.png"
+
+        }
+
+
+    ]
+}
